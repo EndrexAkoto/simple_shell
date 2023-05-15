@@ -13,4 +13,16 @@
 #include<fcntl.h>
 #include<string.h>
 
+*@env: copy list of environ
+*@environ: modified copy environ from LL env
+*env_changed: when environment is changed,turn on
+
+/*toem_environ.c*/
+char *_getenv(info_t*, const char*);
+int *_myenv(info_t*);
+int _mysetenv(info_t*);
+int _myunsetenv(info_t*);
+int populate_env_list(info_t*);
+
 #endif
+
