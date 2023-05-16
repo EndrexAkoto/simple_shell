@@ -31,12 +31,31 @@
 #define WRITE_BUF_SIZE 1024
 #define BUF_FLUSH -1
 
-
+/*convert_number*/
+#define CONVERT_LOWECASE 2
+#define CONVERT_UNSIGNED 3
 extern char **environ;
 
-*@env : copy list of environ
+/**
+* struct liststr - linked singly list
+* @next - next node
+* @num - number field
+* @str - string
+*/
+typedef struct liststr
+{
+int num;
+char *str;
+struct liststr *next;
+}
+
+list_t
+/**
+* @env : copy list of environ
 * @environ : modified copy environ from LL env
 * env_changed : when environment is changed, turn on
+* 
+*/
 
 /*toem_environ.c*/
 char *_getenv(info_t *, const char*);
