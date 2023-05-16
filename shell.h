@@ -26,6 +26,12 @@
 #define HIST_FILE ".simple_shell_history"
 #define HIST_MAX 4096
 
+/*read/write buffers*/
+#define READ_BUF_SIZE 1024
+#define WRITE_BUF_SIZE 1024
+#define BUF_FLUSH -1
+
+
 extern char **environ;
 
 *@env : copy list of environ
