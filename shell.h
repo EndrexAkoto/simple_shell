@@ -54,8 +54,40 @@ list_t
 * @env : copy list of environ
 * @environ : modified copy environ from LL env
 * env_changed : when environment is changed, turn on
-* 
+* @path - current command path for string
+* @line_count counts error
+* @linecount_flag - count line if on
+* @alias - alias node
+* @cmd_buf - cmd_buf of chaining in address pointer
+* @cmd_buf_type - CMD_type ||, &&
+* @history - history node
+* @fname - filename of the program
+* @err_num - code error for exit()s
+* @arg - argument containing getline from string
+* @argv - string array generated from arg
+* @histcount - number count for history
+* @readfd - read line input from fd
+* @status - last exec'd of return status
+* @struct passinfo - functionoof pseudo-arguments
+* @allowing pointer struct of prototype
+* @argc - counts argument
 */
+typedef struct passinfo
+{
+int aargc;
+int err_num;
+int _linecount_flag;
+int status;
+int env_changed;
+char **environ;
+char *fname;
+char *path
+char *arg
+char **argv;
+unsigned int line_count;
+list_t *history;
+list_t *alias;
+list_t *env;
 
 /*toem_environ.c*/
 char *_getenv(info_t *, const char*);
