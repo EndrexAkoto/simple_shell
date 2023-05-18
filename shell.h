@@ -12,6 +12,7 @@
 #include<sys/types.h>
 #include<fcntl.h>
 #include<string.h>
+#include <errno.h>
 
 /*command chaining*/
 #define CMD_NORM 0
