@@ -2,7 +2,8 @@
 
 /**
 * _myexit - shell is exited
-* @info - maintains constat of the function,potemtial argument
+* @info - maintains the context of the function, potential arguments
+*
 * Return - exit status, (0)if info, argv[0]! = "exit"
 */
 int _myexit(info_t *info)
