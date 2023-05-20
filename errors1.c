@@ -1,5 +1,5 @@
 #include "shell.h"
-
+#include "limits.h"
 /**
  * _erratoi - converts a string to an integer
  * @s: the string to be converted
