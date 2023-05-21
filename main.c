@@ -1,8 +1,9 @@
 #include "shell.h"
 #include <stdlib.h>
+#include <errno.h>
 
 /**
-*Main: code entry point
+*Main: point of entry
 *@ac: handling arg count
 *@av: handling arg vector
 *
