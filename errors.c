@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /**
-* _puts - input string is printed
+* _eputs - input string is printed
 * @str - prints string
 *
-* return - 0
+* Return - nothing
 */
 void _eputs(char *str)
 {
@@ -14,9 +14,31 @@ if (!str)
 return;
 while (str[a] != '\0')
 {
-_eputs(str[a]);
+_eputchar(str[a]);
 a++;
 }
+}
+
+/**
+ * _eputchar - write character c to stderr,
+ * @c: character print,
+ *
+ * Return: 1 On success 
+ * On error, -1 is returned, and errno is set appropriately
+ */
+int _eputchar(char c)
+{
+static int i;
+static char buf[WRITE_BUF_SIZE];
+
+if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
+{
+write(2, buf, i);
+i = 0;
+}
+if (c != BUF_FLUSH)
+buf[i++] = c;
+return (1);
 }
 
 /**
