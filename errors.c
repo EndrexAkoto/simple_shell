@@ -1,11 +1,10 @@
 #include "shell.h"
 
+
 /**
-* _puts - input string is printed
-* @str - prints string
-*
-* return - 0
-*/
+ * _eputs - Prints the input string to stderr.
+ * @str: The string to be printed.
+ */
 void _eputs(char *str)
 {
 int a = 0;
@@ -14,49 +13,71 @@ if (!str)
 return;
 while (str[a] != '\0')
 {
-_eputs(str[a]);
+_eputchar(str[a]);
 a++;
 }
 }
 
 /**
-* _putfd - c is written in fd
-* @c - prints character
-* @fd - writes filedescriptors
-*
-* return - 1 for success, -1 for error
-*/
-int _putdf(char b, int fd)
+ * _eputchar - Writes a character to stderr.
+ * @c: The character to be printed.
+ *
+ * Return: On success, 1 is returned.
+ *         On error, -1 is returned, and errno is set appropriately.
+ */
+void _eputchar(char c)
 {
-static int d;
+static int a;
 static char buf[WRITE_BUF_SIZE];
 
-if (b == BUFF_FLUSH || d >= WRITE_BUF_SIZE)
+if (c == BUF_FLUSH || a >= WRITE_BUF_SIZE)
 {
-write(fd, buf d);
-d = 0;
+write(2, buf, a);
+a = 0;
 }
-if (b != BUF_FLUSH)
-buf[d++] = b;
-return (1);
+if (c != BUF_FLUSH)
+buf[a++] = c;
 }
 
 /**
-* _putsfd - input string is printed
-* @str - string to be printed
-* @fd - file descriptor to be written
-*
-* return - inpu characters of numbers
-*/
+ * _putdf - Writes a character to the specified file descriptor.
+ * @b: The character to be written.
+ * @fd: The file descriptor to be written.
+ *
+ * Return: On success, 1 is returned.
+ *         On error, -1 is returned, and errno is set appropriately.
+ */
+int _putdf(char b, int fd)
+{
+static int a;
+static char buf[WRITE_BUF_SIZE];
+
+if (b == BUF_FLUSH || a >= WRITE_BUF_SIZE)
+{
+write(fd, buf, a);
+a = 0;
+}
+if (a != BUF_FLUSH)
+buf[a++] = b;
+{return 1; }
+}
+
+/**
+ * _putsfd - Prints the input string to the specified file descriptor.
+ * @str: The string to be printed.
+ * @fd: The file descriptor to be written.
+ *
+ * Return: The number of characters written.
+ */
 int _putsfd(char *str, int fd)
 {
-int d = 0
+int a = 0;
 if (!str)
-return (0);
+{return 0; }
 while (*str)
 {
-d + = _putfd(*str ++, fd);
+a += _putdf(*str++, fd);
 }
-return (d)
+{return a; }
 }
 

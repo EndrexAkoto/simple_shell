@@ -1,4 +1,14 @@
+<<<<<<< HEAD
 #include "main.h"
+=======
+#include "shell.h"
+#include <stdlib.h>
+#include <errno.h>
+#include <unistd.h>
+
+#define WRITE_BUF_SIZE 1024
+#define BUF_FLUSH '\n'
+>>>>>>> 4ac36ba8a5726aa1d5f2ffe5ad442fe8b03a76f5
 
 /**
 * process_line - process each line of input
