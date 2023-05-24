@@ -6,9 +6,8 @@
 *
 * Return - exit status, (0) if info->argv[0] != "exit"
 */
-int _myexit(info_t *info)
+int int (*func)(info_t *);
 {
-int exitcheck;
 
 /*exit argument*/
 if (info->argv[1])
@@ -31,7 +30,7 @@ return (-2);
 * @info - contains potential arguments
 * Return: 0
 */
-int _mycd(info_t *info)
+int (*func)(info_t *);
 {
 char *a, *dir, buffer[1024];
 int chdir_ret;
@@ -81,7 +80,7 @@ return (0);
 *  Used to maintain constant function prototype.
 * Return- 0
 */
-int _myhelp(info_t *info)
+int (*func)(info_t *);
 {
 char **arg_array;
 arg_array = info->argv;
