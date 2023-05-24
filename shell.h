@@ -1,7 +1,6 @@
-#define SHELL_H
 #ifndef SHELL_H
+#define SHELL_H
 
-#include<shell.h>
 #include<stdlib.h>
 #include<stdio.h>
 #include<errno.h>
