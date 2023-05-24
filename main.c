@@ -1,47 +1,98 @@
-#include "shell.h"
-#include <stdlib.h>
-#include <errno.h>
+#include "main.h"
 
 /**
-*Main: point of entry
-*@ac: handling arg count
-*@av: handling arg vector
+* process_line - process each line of input
+* @line: the input line
+* @is_interactive: flag to check if input is interactive
+* @program_name: name of the program
 *
-*Return: 0 success, 1 error
+* Return: nothing
 */
-int main(int ac, char **av)
+void process_line(char *line, int is_interactive, char *program_name)
 {
-info_t[] = {INFO_INT};
-int inf = 2;
+char **tokens = NULL;
+pid_t pid;
 
-asm ("move %51, %0\n\t"
-"add $3,
-%0" "= r"(inf)
-"r" = (inf));
-if (ac == 2)
-{
-inf = open(av[1], O_RDONLY);
-if (inf == -1)
-{
-if (errno == EACCESS)
-exit(125);
-if (errno == ENOENT)
-{
-_eputs(av[0]);
-_eputs(":0:cant open");
-_eputs(av[1]);
-_eputchar('\n');
-_eputchar (BUF_FLUSH);
-exit(127);
-}
-return (EXIT_FAILURE);
-}
-info->readinf = inf;
-}
-populate_env_list(info);
-read_history(info);
-hsh(info, av);
+/* Cast to void to suppress unused parameter warning */
+(void)is_interactive;
 
-return (EXIT_SUCCESS);
+tokens = command_parser(line, ";");
+if (tokens != NULL && tokens[0] != NULL)
+{
+if (strcmp(tokens[0], "env") == 0)
+builtin_env();
+else if (strcmp(tokens[0], "exit") == 0)
+handle_exit(tokens);
+else if (strcmp(tokens[0], "cd") == 0)
+handle_cd(tokens);
+else
+{
+pid = create_process();
+if (pid == 0)
+{
+if (execute_command(tokens[0], tokens, program_name) == -1)
+{
+write(STDERR_FILENO, program_name, strlen(program_name));
+write(STDERR_FILENO, ": 1: ", 5);
+write(STDERR_FILENO, tokens[0], strlen(tokens[0]));
+write(STDERR_FILENO, ": not found\n", 12);
+exit(EXIT_FAILURE);
+}
+}
+else if (pid > 0)
+{
+if (wait_for_process(pid) == -1)
+perror("Failed to wait for process");
+}
+}
+free(tokens);
+}
 }
 
+
+/**
+* main - main function for the shell
+* @argc: argument count
+* @argv: argument vector
+*
+* Return: 0 on success, or other number on failure
+*/
+int main(int argc, char **argv)
+{
+char *line = NULL;
+size_t len = 0;
+int is_interactive;
+
+(void)argc;
+
+/* Attach sigint_handler to SIGINT signal */
+signal(SIGINT, sigint_handler);
+
+is_interactive = isatty(STDIN_FILENO);
+
+while (1)
+{
+if (is_interactive)
+print_prompt();
+
+if (custom_getline(&line, &len, stdin) == -1)
+{
+perror("Error reading input");
+free(line);
+exit(EXIT_FAILURE);
+}
+
+if (feof(stdin))
+{
+free(line);
+if (is_interactive)
+write(STDOUT_FILENO, "\n", 1);
+exit(EXIT_SUCCESS);
+}
+
+process_line(line, is_interactive, argv[0]);
+}
+
+free(line);
+return (0);
+}
