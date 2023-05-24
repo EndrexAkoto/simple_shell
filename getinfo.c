@@ -36,7 +36,7 @@ void set_info(info_t *info, char **av)
 		}
 		for (a = 0; info->argv && info->argv[a]; a++)
 			;
-		info->argc = a;
+		info->aargc = a;
 
 		replace_alias(info);
 		replace_vars(info);
@@ -50,7 +50,7 @@ void set_info(info_t *info, char **av)
  */
 void free_info(info_t *info, int all)
 {
-ffree(info->argv);
+bfree(info->argv);
 info->argv = NULL;
 info->path = NULL;
 
@@ -72,4 +72,3 @@ info->path = NULL;
 		_putchar(BUF_FLUSH);
 	}
 }
-
