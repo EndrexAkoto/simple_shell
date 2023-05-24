@@ -65,7 +65,7 @@ chdir_ret = (chdir(info)->argv[1]);
 if (chdir_ ret == -1)
 {
 print_err(info, "cd impossible");
-_eputs(info->argv[1], _eputchar('/n'));
+_eputs(info->argv[1], _eputchar('\n'));
 }
 else
 {
