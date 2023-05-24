@@ -6,7 +6,7 @@
 *
 * Return - exit status, (0) if info->argv[0] != "exit"
 */
-int int (*func)(info_t *);
+int (*func)(info_t *);
 {
 
 /*exit argument*/

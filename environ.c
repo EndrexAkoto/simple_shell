@@ -27,8 +27,8 @@ char *_getenv(info_t *info, const char *name)
 	while (node)
 	{
 		e = starts_with(node->str, name);
-		if (e && *p)
-			return (p);
+		if (e && *e)
+			return (e);
 		node = node->next;
 	}
 	return (NULL);
@@ -57,8 +57,7 @@ int _mysetenv(info_t *info)
 * @info: maintains constant function
 * Return: Always 0
 */
-
-int_myunsetenv(info_t *info)
+int _myunsetenv(info_t *info)
 {
 	int a;
 	int argc = info->argc;
@@ -94,3 +93,4 @@ int populate_env_list(info_t *info)
 		return (0);
 	}
 }
+
