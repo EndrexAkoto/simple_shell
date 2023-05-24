@@ -1,6 +1,10 @@
 #include "shell.h"
 #include <stdlib.h>
 #include <errno.h>
+#include <unistd.h>
+
+#define WRITE_BUF_SIZE 1024
+#define BUF_FLUSH '\n'
 
 /**
 *Main: point of entry

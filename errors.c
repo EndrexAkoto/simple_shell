@@ -1,11 +1,10 @@
 #include "shell.h"
 
+
 /**
-* _eputs - input string is printed
-* @str - prints string
-*
-* Return - nothing
-*/
+ * _eputs - Prints the input string to stderr.
+ * @str: The string to be printed.
+ */
 void _eputs(char *str)
 {
 int a = 0;
@@ -20,65 +19,65 @@ a++;
 }
 
 /**
- * _eputchar - write character c to stderr,
- * @c: character print,
+ * _eputchar - Writes a character to stderr.
+ * @c: The character to be printed.
  *
- * Return: 1 On success 
- * On error, -1 is returned, and errno is set appropriately
+ * Return: On success, 1 is returned.
+ *         On error, -1 is returned, and errno is set appropriately.
  */
-int _eputchar(char c)
+void _eputchar(char c)
 {
-static int i;
+static int a;
 static char buf[WRITE_BUF_SIZE];
 
-if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
+if (c == BUF_FLUSH || a >= WRITE_BUF_SIZE)
 {
-write(2, buf, i);
-i = 0;
+write(2, buf, a);
+a = 0;
 }
 if (c != BUF_FLUSH)
-buf[i++] = c;
-return (1);
+buf[a++] = c;
 }
 
 /**
-* _putfd - c is written in fd
-* @c - prints character
-* @fd - writes filedescriptors
-*
-* return - 1 for success, -1 for error
-*/
+ * _putdf - Writes a character to the specified file descriptor.
+ * @b: The character to be written.
+ * @fd: The file descriptor to be written.
+ *
+ * Return: On success, 1 is returned.
+ *         On error, -1 is returned, and errno is set appropriately.
+ */
 int _putdf(char b, int fd)
 {
-static int d;
+static int a;
 static char buf[WRITE_BUF_SIZE];
 
-if (b == BUFF_FLUSH || d >= WRITE_BUF_SIZE)
+if (b == BUF_FLUSH || a >= WRITE_BUF_SIZE)
 {
-write(fd, buf d);
-d = 0;
+write(fd, buf, a);
+a = 0;
 }
-if (b != BUF_FLUSH)
-buf[d++] = b;
-return (1);
+if (a != BUF_FLUSH)
+buf[a++] = b;
+{return 1; }
 }
 
 /**
-* _putsfd - input string is printed
-* @str - string to be printed
-* @fd - file descriptor to be written
-*
-* return - inpu characters of numbers
-*/
+ * _putsfd - Prints the input string to the specified file descriptor.
+ * @str: The string to be printed.
+ * @fd: The file descriptor to be written.
+ *
+ * Return: The number of characters written.
+ */
 int _putsfd(char *str, int fd)
 {
-int d = 0
+int a = 0;
 if (!str)
-return (0);
+{return 0; }
 while (*str)
 {
-d + = _putfd(*str ++, fd);
+a += _putdf(*str++, fd);
 }
-return (d)
+{return a; }
 }
 
