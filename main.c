@@ -1,5 +1,4 @@
-#include "main.h"
-#include "processes.h"
+#include "shell.h"
 #include <sys/wait.h>
 
 /**
@@ -22,9 +21,13 @@ tokens = command_parser(line, ";");
 if (tokens != NULL && tokens[0] != NULL)
 {
 if (strcmp(tokens[0], "env") == 0)
+
 builtin_env();
+
 else if (strcmp(tokens[0], "exit") == 0)
+
 handle_exit(tokens);
+
 else if (strcmp(tokens[0], "cd") == 0)
 handle_cd(tokens);
 else
@@ -97,4 +100,5 @@ process_line(line, is_interactive, argv[0]);
 
 free(line);
 return (0);
+}
 
