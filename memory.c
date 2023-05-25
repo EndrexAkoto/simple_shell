@@ -1,21 +1,50 @@
 #include "shell.h"
-#include <stdlib.h>
-#include <stddef.h>
 
 /**
- * bfree - frees pointer, NULLs the address
- * @ptr: address pointer free
+ * free_dp - frees pointer, NULLs the address
+ * command: address pointer free
  *
- * Return: 1 if freed, otherwise 0
+ * Return - 0
  */
-int bfree(void **ptr)
+void free_dp(char **command)
 {
-	if (ptr && *ptr)
+	size_t e = 0;
+
+	if (command == NULL)
+		return;
+
+	while (command[e])
 	{
-		free(*ptr);
-		*ptr = NULL;
-		return (1);
+		free(command[e]);
+		e++;
 	}
-	return (0);
+
+	if (command[e] == NULL)
+		free(command[e]);
+	free(command);
 }
 
+
+/**
+ * free_exit - frees  memory allocated and exit
+ * @command: points allocated command memory
+ * Return: 0
+ */
+void free_exit(char **command)
+{
+	size_t m = 0;
+
+	if (command == NULL)
+		return;
+
+	while (command[m])
+	{
+		free(command[m]);
+		m++;
+	}
+
+	if (command[m] == NULL)
+		free(command[m]);
+	free(command);
+	exit(EXIT_FAILURE);
+}

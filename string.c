@@ -1,77 +1,109 @@
 #include "shell.h"
-#include <stddef.h>
 
 /**
- * _strlen - returns string length
- * @s: string length to check
- *
- * Return: integer length string
- */
-int _strlen(char *s)
-{
-	int y = 0;
-
-	if (!s)
-		return (0);
-
-	while (*s++)
-		y++;
-	return (y);
-}
-
-/**
- * _strcmp - performs lexicogarphic comparison two strangs
- * @s1: first strang
- * @s2: second strang
- *
- * Return: negative if s1 < s2, positive if s1 > s2, zero if s1 == s2
+ * _strcmp - compares two strings,
+ * @s1: string 1
+ * @s2: string 2
+ * Return: 1 if same strings, 0 if not
  */
 int _strcmp(char *s1, char *s2)
 {
-	while (*s1 && *s2)
+	unsigned int q = 0;
+
+	while (s1[q])
 	{
-		if (*s1 != *s2)
-			return (*s1 - *s2);
-		s1++;
-		s2++;
+		if (s1[q] != s2[q])
+			return (0);
+		q++;
 	}
-	if (*s1 == *s2)
-		return (0);
-	else
-		return (*s1 < *s2 ? -1 : 1);
+
+	return (1);
 }
 
+
 /**
- * starts_with - checks the needle starts with haystack,
- * @haystack: string to search
- * @needle: substring to find
- *
- * Return: address of next char of haystack or NULL
+ * _strlen -  finds  length  string,
+ * @s: input string,
+ * Return: length of string,
  */
-char *starts_with(const char *haystack, const char *needle)
+unsigned int _strlen(char *s)
 {
-	while (*needle)
-		if (*needle++ != *haystack++)
-			return (NULL);
-	return ((char *)haystack);
+	unsigned int slen = 0;
+
+	while (s[slen])
+		slen++;
+
+	return (slen);
 }
 
+
 /**
- * _strcat - concatenates two strings,
- * @dest: buffer destination
- * @src: buffer source
- *
- * Return: pointer to destination buffer
+ * _strcpy - copies string to another string,
+ * @dest: points to copied string,
+ * @src: points string to copy
+ * Return: points copied string,
+ */
+char *_strcpy(char *dest, char *src)
+{
+	char *cp = dest;
+
+	while (*src)
+		*dest++ = *src++;
+	*dest = '\0';
+	return (cp);
+}
+
+
+/**
+ * _strcat - concatenates two strings
+ * @dest: input string
+ * @src: input string
+ * Return: points resulting strings
  */
 char *_strcat(char *dest, char *src)
 {
-	char *ret = dest;
+	char *tmp = dest;
 
 	while (*dest)
 		dest++;
+
+	*dest++ = '/';
 	while (*src)
 		*dest++ = *src++;
-	*dest = *src;
-	return (ret);
+	return (tmp);
 }
 
+
+/**
+ * _atoi - converts string to integer
+ * @s: input string
+ * Return: integer conversion
+ */
+int _atoi(char *s)
+{
+	int sign = 1;
+	unsigned int sum = 0;
+	char n_flag = 0;
+
+	if (s == NULL)
+		return (0);
+	while (*s)
+	{
+		if (*s == '-')
+			sign *= -1;
+		if (*s >= '0' && *s <= '9')
+		{
+			n_flag = 1;
+			sum = sum * 10 + (*s - '0');
+		}
+		else if (*s < '0' || *s > '9')
+		{
+			if (n_flag == 1)
+				break;
+		}
+		s++;
+	}
+	if (sign < 0)
+		sum = (-1 * (sum));
+	return (sum);
+}
